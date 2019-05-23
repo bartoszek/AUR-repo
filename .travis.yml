@@ -1,0 +1,22 @@
+sudo: required
+
+branches:
+  only:
+    - master
+
+services:
+- docker
+
+arch:
+# repos:
+# - papyros=http://dash.papyros.io/repos/$repo/$arch
+  packages:
+  # arch/aur packages
+# - python
+# - perl
+  script:
+  - "repo-add bartus.db.tar *.pkg.tar.xz"
+
+script:
+- "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+- "ls $(pwd)"
