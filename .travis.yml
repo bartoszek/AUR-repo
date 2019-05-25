@@ -21,6 +21,9 @@ arch:
   - "read pkgname pkgver < <(git log -n -1 --pretty=\"%s\")"
   - "echo $pkgname $pkgver"
   - "repo-add bartus.db.tar -R $pkgname*$pkgver*.pkg.tar.xz"
+  - "rm bartus.db bartus.files"
+  - "cp bartus.db.tar bartus.db"
+  - "cp bartus.files.tar bartus.files"
 
 script:
 - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
