@@ -18,16 +18,22 @@ arch:
   # arch pkg naming scheme: <$pkgname>-<?$epoch+':'><$pkgver>-<$arch>.pkg.tar.xz
   # commit message subject: <$pkgname> <$pkgver>
   # notice: you can't use travis env variables inside docker env ($TRAVIS_COMMIT_MESSAGE)
-  - "read pkgname pkgver < <(git log -n -1 --pretty=\"%s\")"
-  - "echo $pkgname $pkgver"
-  - "repo-add bartus.db.tar -R $pkgname*$pkgver*.pkg.tar.xz"
-  - "rm bartus.db bartus.files"
-  - "cp bartus.db.tar bartus.db"
-  - "cp bartus.files.tar bartus.files"
+  - |
+    while
+      commit_message=$(git log --pretty="%s" --skip ${i:-0} -n 1)
+      grep -qv "skip ci" <<<"$commit_message"
+    do
+      read pkgname pkgver <<<"$commit_message"
+      echo $pkgname $pkgver
+      repo-add bartus.db.tar -R $pkgname*$pkgver*.pkg.tar.xz
+      ((i++))
+    done
+    rm bartus.db bartus.files
+    cp bartus.db.tar bartus.db
+    cp bartus.files.tar bartus.files
 
 script:
 - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
-- "ls $(pwd)"
 
 deploy:
   provider: script
