@@ -1,43 +1,42 @@
-sudo: required
+#Force minimal environment 
+language: bash
+
+#Add `bsdtar` required by `repo-add`
+addons:
+  apt:
+    packages:
+    - bsdtar
 
 branches:
   only:
     - master
 
-services:
-- docker
-
-arch:
-# repos:
-# - papyros=http://dash.papyros.io/repos/$repo/$arch
-  packages:
-  # arch/aur packages
-# - python
-# - perl
-  script:
-  # arch pkg naming scheme: <$pkgname>-<?$epoch+':'><$pkgver>-<$arch>.pkg.tar.xz
-  # commit message subject: <$pkgname> <$pkgver>
-  # notice: you can't use travis env variables inside docker env ($TRAVIS_COMMIT_MESSAGE)
+script:
   - |
+    # current version of `repo-add`
+    curl -L https://www.archlinux.org/packages/core/x86_64/pacman/download/ |tar xJf - usr/bin/repo-add --strip-components=2
+    # fix bin path differ in ubuntu
+    sed 's/\/usr\/bin\/bash/\/bin\/bash/' -i repo-add
+    # credentials for GitHub
+    git remote set-url origin https://$GITHUB_ACCESS_TOKEN@github.com/bartoszek/AUR-repo.git
     while
       commit_message=$(git log --pretty="%s" --skip ${i:-0} -n 1)
       grep -qv "skip ci" <<<"$commit_message"
     do
       read pkgname pkgver <<<"$commit_message"
-      echo $pkgname $pkgver
-      repo-add bartus.db.tar -R $pkgname*$pkgver*.pkg.tar.xz
+      echo "Update package $pkgname to version $pkgver"
+      file=$pkgname*$pkgver*.pkg.tar.xz
+      ./repo-add bartus.db.tar -R $file
+      git add $file
       ((i++))
     done
+    [ -z $i ] && { echo "Nothing to update!"; exit 10; }
+    # GitHub mediaserver doesn't provide content of symlink (only name of the target)
     rm bartus.db bartus.files
     cp bartus.db.tar bartus.db
     cp bartus.files.tar bartus.files
 
-script:
-- "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
-
-deploy:
-  provider: script
-  script: bash .travis_deploy.sh
-  on:
-    branch: master
-  skip_cleanup: true
+    # Drop update if local HEAD detaches
+    git checkout master || { echo "Abort: There's a new package(s) not include in this update"; exit 20; }
+    git commit -a -m "update repo db [skip ci]"
+    git push
