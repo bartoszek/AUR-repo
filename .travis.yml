@@ -26,15 +26,15 @@ script:
       read pkgname pkgver <<<"$commit_message"
       echo "Update package $pkgname to version $pkgver"
       file=$pkgname*$pkgver*.pkg.tar.xz
-      ./repo-add bartus.db.tar -R $file
+      ./repo-add bartus.db.tar.xz -R $file
       git add $file
       ((i++))
     done
     [ -z $i ] && { echo "Nothing to update!"; exit 10; }
     # GitHub mediaserver doesn't provide content of symlink (only name of the target)
     rm bartus.db bartus.files
-    cp bartus.db.tar bartus.db
-    cp bartus.files.tar bartus.files
+    cp bartus.db.tar.xz bartus.db
+    cp bartus.files.tar.xz bartus.files
 
     # Drop update if local HEAD detaches
     git checkout master || { echo "Abort: There's a new package(s) not include in this update"; exit 20; }
