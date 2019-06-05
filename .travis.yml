@@ -36,6 +36,9 @@ script:
     cp bartus.db.tar.xz bartus.db
     cp bartus.files.tar.xz bartus.files
 
+    # Update status table
+    ./.update.README.sh
+
     # Drop update if local HEAD detaches
     git checkout master || { echo "Abort: There's a new package(s) not include in this update"; exit 20; }
     git commit -a -m "update repo db [skip ci]"
