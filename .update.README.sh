@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/bash
 # sed -n '1,/<!--begin-->/p;/<!--end-->/,$p' README.md
 
 _tab_header='| Package | Status | Last | Count|\n|--:|:--|--:|--:|'
