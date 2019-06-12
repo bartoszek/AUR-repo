@@ -12,13 +12,15 @@ branches:
     - master
 
 script:
+#   Get `repo-add`
+#   fix bin path
   - |
-    # current version of `repo-add`
     curl -L https://www.archlinux.org/packages/core/x86_64/pacman/download/ |tar xJf - usr/bin/repo-add --strip-components=2
-    # fix bin path differ in ubuntu
     sed 's/\/usr\/bin\/bash/\/bin\/bash/' -i repo-add
-    # credentials for GitHub
-    git remote set-url origin https://$GITHUB_ACCESS_TOKEN@github.com/bartoszek/AUR-repo.git
+#   GitHub credentials
+  - git remote set-url origin https://$GITHUB_ACCESS_TOKEN@github.com/bartoszek/AUR-repo.git
+#   Add packages
+  - |
     while
       commit_message=$(git log --pretty="%s" --skip ${i:-0} -n 1)
       grep -qv "skip ci" <<<"$commit_message"
@@ -30,16 +32,21 @@ script:
       git add $file
       ((i++))
     done
+#   Skip if no new packge
+  - |
     [ -z $i ] && { echo "Nothing to update!"; exit 10; }
-    # GitHub mediaserver doesn't provide content of symlink (only name of the target)
+#   Change symlink to copies (GitHub mediaserver doesn't provide content for symlink)
+  - |
     rm bartus.db bartus.files
     cp bartus.db.tar.xz bartus.db
     cp bartus.files.tar.xz bartus.files
 
-    # Update status table
-    ./.update.README.sh
+#   Update status table
+  - ./.update.README.sh
 
-    # Drop update if local HEAD detaches
+#   Drop update if local HEAD detaches
+  - |
     git checkout master || { echo "Abort: There's a new package(s) not include in this update"; exit 20; }
-    git commit -a -m "update repo db [skip ci]"
-    git push
+#   Commit changes
+  - git commit -a -m "update repo db [skip ci]"
+  - git push
