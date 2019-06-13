@@ -34,7 +34,7 @@ script:
     done
 #   Skip if no new packge
   - |
-    [ -z $i ] && { echo "Nothing to update!"; exit 10; }
+    [ -z $i ] && { echo "Nothing to update!"; exit 10; } || true
 #   Change symlink to copies (GitHub mediaserver doesn't provide content for symlink)
   - |
     rm bartus.db bartus.files
