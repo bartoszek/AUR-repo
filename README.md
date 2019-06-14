@@ -13,7 +13,7 @@ Server = https://github.com/bartoszek/AUR-repo/raw/master
 | [luxcorerender](https://github.com/bartoszek/AUR-luxcorerender)| [![Build Status luxcorerender](https://travis-ci.org/bartoszek/AUR-luxcorerender.svg)](https://travis-ci.org/bartoszek/AUR-luxcorerender) | 29 |
 | [luxcorerender-git](https://github.com/bartoszek/AUR-luxcorerender-git)| [![Build Status luxcorerender-git](https://travis-ci.org/bartoszek/AUR-luxcorerender-git.svg)](https://travis-ci.org/bartoszek/AUR-luxcorerender-git) | 26 |
 | [meshlab](https://github.com/bartoszek/AUR-meshlab)| [![Build Status meshlab](https://travis-ci.org/bartoszek/AUR-meshlab.svg)](https://travis-ci.org/bartoszek/AUR-meshlab) | 2 |
-| [oidn](https://github.com/bartoszek/AUR-oidn)| [![Build Status oidn](https://travis-ci.org/bartoszek/AUR-oidn.svg)](https://travis-ci.org/bartoszek/AUR-oidn) | 8 |
+| [oidn](https://github.com/bartoszek/AUR-oidn)| [![Build Status oidn](https://travis-ci.org/bartoszek/AUR-oidn.svg)](https://travis-ci.org/bartoszek/AUR-oidn) | 9 |
 | [openboard-git](https://github.com/bartoszek/AUR-openboard-git)| [![Build Status openboard-git](https://travis-ci.org/bartoszek/AUR-openboard-git.svg)](https://travis-ci.org/bartoszek/AUR-openboard-git) | 21 |
 <!--end-->
 <!--
