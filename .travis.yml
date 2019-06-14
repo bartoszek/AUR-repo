@@ -31,7 +31,7 @@ script:
       ./repo-add bartus.db.tar.xz -R $file
       git add $file
       ((i++))
-    done
+    done || true
 #   Skip if no new packge
   - |
     [ -z $i ] && { echo "Nothing to update!"; exit 10; } || true
