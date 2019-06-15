@@ -9,7 +9,7 @@ Server = https://github.com/bartoszek/AUR-repo/raw/master
 <!--begin-->
 | Package | Status | #No|
 |--:|:--|--:|
-| [blender-2.8-git](https://github.com/bartoszek/AUR-blender-2.8-git)| [![Build Status blender-2.8-git](https://travis-ci.org/bartoszek/AUR-blender-2.8-git.svg)](https://travis-ci.org/bartoszek/AUR-blender-2.8-git) | 29 |
+| [blender-2.8-git](https://github.com/bartoszek/AUR-blender-2.8-git)| [![Build Status blender-2.8-git](https://travis-ci.org/bartoszek/AUR-blender-2.8-git.svg)](https://travis-ci.org/bartoszek/AUR-blender-2.8-git) | 30 |
 | [luxcorerender](https://github.com/bartoszek/AUR-luxcorerender)| [![Build Status luxcorerender](https://travis-ci.org/bartoszek/AUR-luxcorerender.svg)](https://travis-ci.org/bartoszek/AUR-luxcorerender) | 31 |
 | [luxcorerender-git](https://github.com/bartoszek/AUR-luxcorerender-git)| [![Build Status luxcorerender-git](https://travis-ci.org/bartoszek/AUR-luxcorerender-git.svg)](https://travis-ci.org/bartoszek/AUR-luxcorerender-git) | 28 |
 | [meshlab](https://github.com/bartoszek/AUR-meshlab)| [![Build Status meshlab](https://travis-ci.org/bartoszek/AUR-meshlab.svg)](https://travis-ci.org/bartoszek/AUR-meshlab) | 2 |
